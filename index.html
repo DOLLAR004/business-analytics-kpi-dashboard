@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loomtech | Business Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* Corporate Navigation Header */
+        header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; color: white; padding: 15px 25px; border-radius: 12px; margin-bottom: 25px; }
+        header h1 { margin: 0; font-size: 20px; font-weight: 600; }
+        .live-indicator { background: #22c55e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+        /* KPI Executive Metric Grid */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .kpi-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .kpi-card h3 { margin: 0; color: #64748b; font-size: 14px; text-transform: uppercase; }
+        .kpi-card .value { font-size: 28px; font-weight: bold; margin: 10px 0 5px 0; color: #1e293b; }
+        .kpi-card .trend { font-size: 12px; font-weight: 500; color: #22c55e; }
+
+        /* Main Analytical Layout Grid */
+        .chart-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .chart-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .chart-card h2 { margin-top: 0; font-size: 16px; color: #334155; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+        
+        .chart-container { position: relative; height: 300px; width: 100%; }
+
+        @media (max-width: 768px) {
+            .chart-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Loomtech Corporate Performance Dashboard</h1>
+            <span class="live-indicator">● LIVE BI TRACKING</span>
+        </header>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <h3>Total Revenue</h3>
+                <div class="value">KES 420,000</div>
+                <div class="trend">↑ 12% vs last month</div>
+            </div>
+            <div class="kpi-card">
+                <h3>Project Expenses</h3>
+                <div class="value">KES 135,000</div>
+                <div class="trend" style="color: #ef4444;">↓ 4% optimization</div>
+            </div>
+            <div class="kpi-card">
+                <h3>Active Retainers</h3>
+                <div class="value">18 Clients</div>
+                <div class="trend">↑ 3 new this week</div>
+            </div>
+            <div class="kpi-card">
+                <h3>Conversion Rate</h3>
+                <div class="value">24.3%</div>
+                <div class="trend">↑ 2.1% web traffic</div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h2>6-Month Growth & Revenue Matrix</h2>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>Operational Service Allocations</h2>
+                <div class="chart-container">
+                    <canvas id="serviceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Line Chart Instantiation (Revenue Over Time)
+        const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctxRevenue, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Gross Earnings (KES)',
+                    data: [150000, 210000, 180000, 310000, 290000, 420000],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // Doughnut Chart Instantiation (Operational Division breakdown)
+        const ctxService = document.getElementById('serviceChart').getContext('2d');
+        new Chart(ctxService, {
+            type: 'doughnut',
+            data: {
+                labels: ['Web Dev', 'Graphics', 'IT Support'],
+                datasets: [{
+                    data: [55, 25, 20],
+                    backgroundColor: ['#0f172a', '#2563eb', '#cbd5e1'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    </script>
+</body>
+</html>
